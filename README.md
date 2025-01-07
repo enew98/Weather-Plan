@@ -11,3 +11,13 @@ userloc = input("Enter your location: ")
 location = geolocator.geocode(userloc)
 print(location.address)
 print((location.latitude, location.longitude))
+
+!pip install requests
+import requests
+
+def nws(lat,long):
+  url = f"https://api.weather.gov/points/{latitude},{longitude}"
+  response = requests.get(url)
+  data = response.json()
+  forecast_url = data['properties']['forecastHourly']
+  return forecast_url
