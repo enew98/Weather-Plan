@@ -5,11 +5,13 @@ pip install geopy
 
 from geopy.geocoders import Nominatim
 geolocator = Nominatim(user_agent="Weather Plan")
-userloc = input("Enter your location: ") 
+userloc = input("Enter your destination: ") 
 
 location = geolocator.geocode(userloc)
 print(location.address)
-print((location.latitude, location.longitude))
+latitude = location.latitude
+longitude = location.longitude
+print((latitude, longitude))
 
 !pip install requests
 import requests
