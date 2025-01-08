@@ -24,7 +24,7 @@ def nws(lat,long):
 # clothing_rec
 def generate_clothing_recommendations(weather_data):
     openai.api_key = "YOUR_OPENAI_API_KEY"  # Replace with your OpenAI API key
-    forecast = weather_data["forecast"]["forecastday"][0]["day"]
+    forecast = weather_data["forecast"]["forecastHourly"]
     temp = forecast["avgtemp_f"]
     rain = forecast["daily_chance_of_rain"]
     wind = forecast["maxwind_mph"]
