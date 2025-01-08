@@ -1,0 +1,20 @@
+import openai
+
+openai.api_key = #"replace this with actual api key"
+
+# Make the API call to create a chat completion
+completion = openai.ChatCompletion.create(
+    model="gpt-3.5-turbo",
+    messages=[
+        {"role": "user", "content": "write a clothing recommendation"}
+    ]
+)
+
+print(completion.choices[0].message['content'])
+
+from openai import OpenAI
+
+client = OpenAI(
+  organization='epic',
+  project='weatherplan',
+)
