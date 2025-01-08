@@ -16,12 +16,17 @@ print((latitude, longitude))
 !pip install requests
 import requests
 
+# get weather forecast from NWS
 def nws(lat,long):
-  url = f"https://api.weather.gov/points/{latitude},{longitude}"
+  url = f"https://api.weather.gov/points/{lat},{long}"
   response = requests.get(url)
   data = response.json()
   forecast_url = data['properties']['forecastHourly']
   return forecast_url
+def get_forecast(forecast_url):
+  response = requests.get(forecast_url)
+  forecast_data = response.json()
+  return forecast_data
 
 # clothing_rec
 def generate_clothing_recommendations(weather_data):
