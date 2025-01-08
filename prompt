@@ -1,20 +1,31 @@
-import openai
+# Function to fetch weather data
+def get_weather_data(location, date):
+    api_key = "YOUR_WEATHER_API_KEY"  # Replace with your Weather API key
+    url = f"http://api.weatherapi.com/v1/forecast.json?key={api_key}&q={location}&dt={date}"
+    response = requests.get(url)
+    if response.status_code == 200:
+        return response.json()
+    else:
+        return {"error": "Failed to fetch weather data"}
 
-openai.api_key = #"replace this with actual api key"
+# Function to generate clothing recommendations
+def generate_clothing_recommendations(weather_data):
+    openai.api_key = "YOUR_OPENAI_API_KEY"  # Replace with your OpenAI API key
+    forecast = weather_data["forecast"]["forecastday"][0]["day"]
+    temp = forecast["avgtemp_f"]
+    rain = forecast["daily_chance_of_rain"]
+    wind = forecast["maxwind_mph"]
 
-# Make the API call to create a chat completion
-completion = openai.ChatCompletion.create(
-    model="gpt-3.5-turbo",
-    messages=[
-        {"role": "user", "content": "write a clothing recommendation"}
-    ]
-)
+    prompt = f"""Based on the following weather data:
+    - Average Temperature: {temp}°F
+    - Chance of Rain: {rain}%
+    - Wind Speed: {wind} mph
 
-print(completion.choices[0].message['content'])
-
-from openai import OpenAI
-
-client = OpenAI(
-  organization='epic',
-  project='weatherplan',
-)
+    Suggest appropriate clothing for the day."""
+    
+    response = openai.Completion.create(
+        engine="text-davinci-003",
+        prompt=prompt,
+        max_tokens=100
+    )
+    return response.choices[0].text.strip()
